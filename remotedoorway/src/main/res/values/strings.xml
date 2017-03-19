@@ -11,6 +11,7 @@
     <string name="btn_signup_selectimage">Select Profile Picture</string>
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
+    <string name="et_signup_homeaddress">Home Address</string>
     <string name="et_signup_username">Your name</string>
     <string name="tv_signup_gender">Select Gender</string>
     <string name="rb_signup_male">Male</string>
@@ -42,6 +43,8 @@
     <string name="tvsettingsemailaddress">Your Email address: </string>
     <string name="btnsettingsupdate">Update</string>
     <string name="btnsettingssignout">Sign Out</string>
+    <string name="tvotherdoorlist">Shared Access</string>
+    <string name="tvownerdoorlist">Your Doors</string>
 
 
 </resources>
