@@ -73,6 +73,16 @@
                 android:textColor="@android:color/white" />
 
             <EditText
+                android:id="@+id/et_signup_homeaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_signup_homeaddress"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:lines="4"
+                android:textColor="@android:color/white" />
+
+            <EditText
                 android:id="@+id/et_signup_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +120,7 @@
             <ImageView
                 android:id="@+id/iv_signup_dp"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp" />
+                android:layout_height="0dp"/>
 
             <Button
                 android:id="@+id/btn_signup_selectimage"

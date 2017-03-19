@@ -4,7 +4,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -107,6 +115,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void pickImage() {
+
         Log.i("camera", "startCameraActivity()");
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -137,7 +146,9 @@ public class SignupActivity extends AppCompatActivity {
 
             if (BitmapFactory.decodeFile(picturePath) != null) {
                 ImageView rotate = (ImageView) findViewById(R.id.iv_signup_dp);
-                rotate.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                //rotate.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                rotate.setImageBitmap(roundCornerImage(BitmapFactory.decodeFile(picturePath),150));
+                ((ImageView) findViewById(R.id.iv_signup_dp)).getLayoutParams().height = 400;
             }
 
         } else {
@@ -186,9 +197,10 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String confirmpassword = ((EditText)findViewById(R.id.etsignupconfirmpassword)).getText().toString();
+                final String homeAddress = ((EditText)findViewById(R.id.et_signup_homeaddress)).getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -197,6 +209,11 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(homeAddress)) {
+                    Toast.makeText(getApplicationContext(), "Please enter your home address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -271,6 +288,8 @@ public class SignupActivity extends AppCompatActivity {
                                             map2.put("Lat","");
                                             map2.put("Long","");
                                             map2.put("DeviceInfo",getDeviceName());
+                                            map2.put("HomeAdress",homeAddress);
+                                            map2.put("Email",email);
                                             map2.put("DPURL",taskSnapshot.getMetadata().getDownloadUrl().getLastPathSegment().toString());
                                             message_root.updateChildren(map2);
                                             progressBar.setVisibility(View.GONE);
@@ -308,6 +327,29 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             return Character.toUpperCase(first) + s.substring(1);
         }
+    }
+
+
+    public Bitmap roundCornerImage(Bitmap raw, float round) {
+        int width = raw.getWidth();
+        int height = raw.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        canvas.drawARGB(0, 0, 0, 0);
+
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#000000"));
+
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
+
+        canvas.drawRoundRect(rectF, round, round, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(raw, rect, rect, paint);
+
+        return result;
     }
 
     @Override

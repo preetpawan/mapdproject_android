@@ -5,15 +5,45 @@
     android:background="@drawable/app_background"
     tools:context="remotedoorway.byteme.com.fragment.DoorListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List All Door here"
-        android:textColor="@color/buttonbackground"/>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+    <LinearLayout android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvownerdoorlist" />
+
+        <LinearLayout android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="fill_parent">
+
+            <ListView
+                android:id="@+id/lv_fragment_doorlist_ownerdoorlist"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            </ListView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvotherdoorlist"/>
+
+        <LinearLayout android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="fill_parent">
+
+            <ListView
+                android:id="@+id/lv_fragment_doorlist_otherdoorlist"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
